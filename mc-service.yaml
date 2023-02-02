@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+   app: mirth-connect
+   type: mc-svc
+  name: mc
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+    - name: "8443"
+      port: 8443
+      targetPort: 8443
+  selector:
+    app: mirth-connect
+    type: mirth-connect-app-web
+status:
+  loadBalancer: {}
