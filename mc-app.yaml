@@ -1,3 +1,19 @@
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /my-mc-app
+        backend:
+          serviceName: mc
+          servicePort: 9191
 ---
 apiVersion: v1
 kind: Secret
