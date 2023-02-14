@@ -1,14 +1,16 @@
-
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: myapp-ingress
+  namespace: mirthconnect
+  name: echoheaders
   annotations:
     kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.passHostHeader: "true"
+    traefik.backend.loadbalancer.sticky: "true"
 spec:
   rules:
-  - http:
+    - http:
       paths:
       - path: /my-mc-app
         backend:
