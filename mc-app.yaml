@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mirthconnect-mysql-creds
+type: Opaque
+data:
+  password: cm9vdF9wYXNzd29yZA==
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+   app: mirth-connect
+   type: mc-svc
+  name: mc
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+    - name: "8443"
+      port: 8443
+      targetPort: 8443
+  selector:
+    app: mirth-connect
+    type: mirth-connect-app-web
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: mirth-connect
+  name: mc-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+status: {}
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirth-connect
+  labels: 
+    app: mirth-connect
+    type: mc-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mirth-connect
+      type: mirth-connect-app-web
+  template:
+    metadata:
+      labels: 
+        app: mirth-connect
+        type: mirth-connect-app-web
+    spec:
+      containers:
+        - env:
+            - name: DATABASE
+              value: mysql
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mirthconnect-mysql-creds
+                  key: password
+            - name: DATABASE_URL
+              value: jdbc:mysql://db:3306/mirthdb
+            - name: DATABASE_USERNAME
+              value: root
+          image: nextgenhealthcare/connect
+          name: mc
+          ports:
+            - containerPort: 8080
+            - containerPort: 8443
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/connect/appdata
+              name: mc-pv-claim
+      restartPolicy: Always
+      volumes:
+        - name: mc-pv-claim
+          persistentVolumeClaim:
+            claimName: mc-pv-claim
+status: {}
