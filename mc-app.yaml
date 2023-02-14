@@ -1,26 +1,10 @@
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  namespace: mirthconnect
-  name: echoheaders
-  annotations:
-    kubernetes.io/ingress.class: "traefik"
-    traefik.frontend.passHostHeader: "true"
-    traefik.backend.loadbalancer.sticky: "true"
-spec:
-  rules:
-    - http:
-      paths:
-      - path: /my-mc-app
-        backend:
-          serviceName: mc
-          servicePort: 9191
+
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: mirthconnect-mysql-creds
+  namespace: mirth-connect
 type: Opaque
 data:
   password: cm9vdF9wYXNzd29yZA==
@@ -32,6 +16,7 @@ metadata:
    app: mirth-connect
    type: mc-svc
   name: mc
+  namespace: mirth-connect
 spec:
   type: LoadBalancer
   ports:
@@ -53,6 +38,7 @@ metadata:
   labels:
     app: mirth-connect
   name: mc-pv-claim
+  namespace: mirth-connect
 spec:
   accessModes:
     - ReadWriteOnce
@@ -65,6 +51,7 @@ status: {}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: mirth-connect
   name: mirth-connect
   labels: 
     app: mirth-connect
@@ -109,3 +96,22 @@ spec:
           persistentVolumeClaim:
             claimName: mc-pv-claim
 status: {}
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: mirth-connect
+  name: my-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    # traefik.frontend.passHostHeader: "true"
+    # traefik.backend.loadbalancer.sticky: "true"
+spec:
+  rules:
+    - http:
+      paths:
+      - path: /my-mc-app
+        backend:
+          serviceName: mc
+          servicePort: 9191
