@@ -6,6 +6,7 @@ metadata:
     io.kompose.service: db-svc
     tier: backend-svc
   name: db
+  namespace: mirth-connect
 spec:
   ports:
     - name: "3306"
@@ -38,6 +39,7 @@ metadata:
     app: mirthconnect-db
     tier: backend
   name: db
+  namespace: mirth-connect
 spec:
   replicas: 1
   selector:
