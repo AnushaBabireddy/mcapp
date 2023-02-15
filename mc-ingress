@@ -1,0 +1,19 @@
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: mirth-connect
+  name: my-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    # traefik.frontend.passHostHeader: "true"
+    # traefik.backend.loadbalancer.sticky: "true"
+spec:
+  rules:
+    - http:
+      paths:
+      - path: /my-mc-app
+        backend:
+          serviceName: mc
+          servicePort: 9191
