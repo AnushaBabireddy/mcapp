@@ -20,8 +20,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - name: "9191"
-      port: 9191
+    - name: "8181"
+      port: 8181
       targetPort: 8080
     - name: "8443"
       port: 8443
