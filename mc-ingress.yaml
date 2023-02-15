@@ -1,0 +1,21 @@
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mc-app-ingress
+  namespace: mirth-connect
+
+spec:
+  rules:
+    
+    - http:
+        paths:
+          - path: /mcapp
+            pathType: Exact
+            backend:
+              service:
+                name:  mc
+                port:
+                  number: 8181
+                
