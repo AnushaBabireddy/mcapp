@@ -16,4 +16,4 @@ spec:
       - path: /my-mc-app
         backend:
           serviceName: mc
-          servicePort: 9191
+          servicePort: 8181
