@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: mirth-connect
   labels:
-    io.kompose.service: db-svc
+    app: mirth-connect
     tier: backend-svc
   name: db
 spec:

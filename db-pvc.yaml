@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: mirth-connect
   labels:
     app: mirth-connect
   name: db-pv-claim
@@ -9,5 +10,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 3Gi
+      storage: 1Gi
 status: {}

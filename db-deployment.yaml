@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: mirth-connect
   labels:
     app: mirthconnect-db
     tier: backend
