@@ -1,14 +1,14 @@
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   namespace: mirth-connect
-#   labels:
-#     app: mirth-connect
-#   name: mc-pv-claim
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 1Gi
-# status: {}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: mirth-connect
+  labels:
+    app: mirth-connect
+  name: mc-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+status: {}

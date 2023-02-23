@@ -37,12 +37,12 @@ spec:
             - containerPort: 8080
             - containerPort: 8443
           resources: {}
-      #     volumeMounts:
-      #       - mountPath: /opt/connect/appdata
-      #         name: mc-pv-claim
-      # restartPolicy: Always
-      # volumes:
-      #   - name: mc-pv-claim
-      #     persistentVolumeClaim:
-      #       claimName: mc-pv-claim
+          volumeMounts:
+            - mountPath: /opt/connect/appdata
+              name: mc-pv-claim
+      restartPolicy: Always
+      volumes:
+        - name: mc-pv-claim
+          persistentVolumeClaim:
+            claimName: mc-pv-claim
 status: {}
