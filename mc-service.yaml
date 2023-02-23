@@ -7,7 +7,7 @@ metadata:
    type: mc-svc
   name: mc
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: "8585"
       port: 8585
