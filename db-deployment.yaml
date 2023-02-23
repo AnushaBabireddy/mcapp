@@ -36,13 +36,13 @@ spec:
           name: db
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: db-pv-claim
-          resources: {}
-      restartPolicy: Always
-      volumes:
-        - name: db-pv-claim
-          persistentVolumeClaim:
-            claimName: db-pv-claim
+      #     volumeMounts:
+      #       - mountPath: /var/lib/mysql
+      #         name: db-pv-claim
+      #     resources: {}
+      # restartPolicy: Always
+      # volumes:
+      #   - name: db-pv-claim
+      #     persistentVolumeClaim:
+      #       claimName: db-pv-claim
 status: {}
