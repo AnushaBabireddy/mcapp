@@ -10,7 +10,7 @@ spec:
   # - host: "longhorn.cube.local"
   - http:
       paths:
-      - path: /mcapp
+      - path: /webadmin/Index.action
         pathType: Prefix
         backend:
           service:
